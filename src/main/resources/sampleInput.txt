@@ -1,0 +1,2 @@
+{"months": ["January", "February", "August", "September", "October", "March", "May", "April", "November", "June", "July", "December"],
+"weekDays": ["Monday", "Tuesday", "Sunday", "Saturday", "Wednesday", "Friday", "Thursday"]}
