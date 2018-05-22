@@ -1,4 +1,4 @@
-package com.github.dmmarchenko;
+package com.github.dmmarchenko.lab;
 
 import lombok.Data;
 

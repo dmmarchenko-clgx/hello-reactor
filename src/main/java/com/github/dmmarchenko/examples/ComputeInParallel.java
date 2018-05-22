@@ -1,6 +1,5 @@
 package com.github.dmmarchenko.examples;
 
-import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
@@ -14,10 +13,10 @@ import reactor.util.function.Tuple4;
 public class ComputeInParallel {
 
     public static void main(String[] args) {
-        Tuple4<Integer, Integer, Optional<Integer>, Integer> result = Mono.zip(
+        Tuple4<Integer, Integer, Integer, Integer> result = Mono.zip(
             call(() -> longTask(1)),
             call(() -> longTask(2)),
-            call(ComputeInParallel::nullTask).defaultIfEmpty(Optional.empty()),
+            call(ComputeInParallel::nullTask).defaultIfEmpty(0),
             call(() -> longTask(3)))
             .block();
 
@@ -29,7 +28,7 @@ public class ComputeInParallel {
             .subscribeOn(Schedulers.parallel());
     }
 
-    private static Optional<Integer> nullTask() {
+    private static Integer nullTask() {
         return null;
     }
 

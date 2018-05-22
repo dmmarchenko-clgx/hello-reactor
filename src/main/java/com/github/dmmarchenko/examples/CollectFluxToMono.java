@@ -15,11 +15,11 @@ public class CollectFluxToMono {
             .map(Person::new)
             .map(ImmutableList::of)
             .flatMap(Mono::just)
-            //.doOnNext(System.out::println)
+            .doOnNext(System.out::println)
             .flatMap(Flux::fromIterable)
             .collectList();
 
-        //System.out.println(listMono.block());
+        System.out.println(listMono.block());
         System.out.println("------------");
 
         Person person = Flux.just("Marchenko", "Dmytro", "Viktorovych")
@@ -29,10 +29,10 @@ public class CollectFluxToMono {
             .block();
         System.out.println(person);
     }
-}
 
-@Value
-class Person {
+    @Value
+    private static class Person {
 
-    String name;
+        String name;
+    }
 }
