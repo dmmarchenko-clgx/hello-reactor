@@ -12,10 +12,9 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
 
 @Slf4j
-public class ComplexFlow {
+public class CoordinationFlow {
 
     public static void main(String[] args) {
         ImmutableList<Mono<ResponseBuilder>> monos = ImmutableList.of(
@@ -48,7 +47,7 @@ public class ComplexFlow {
     }
 
     @AllArgsConstructor
-    private static class ResponseBuilderImpl implements ComplexFlow.ResponseBuilder {
+    private static class ResponseBuilderImpl implements CoordinationFlow.ResponseBuilder {
 
         private String value;
 
