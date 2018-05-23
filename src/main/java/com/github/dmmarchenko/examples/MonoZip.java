@@ -9,12 +9,12 @@ import reactor.core.publisher.Mono;
 import reactor.util.function.Tuple2;
 
 @Slf4j
-public class CollectingMonos {
+public class MonoZip {
 
     public static void main(String[] args) {
         Person person = Mono.zip(getName(), getAge())
             .map(createPerson())
-            .map(CollectingMonos::uppercase)
+            .map(MonoZip::uppercase)
             .block();
 
         log.info("Created person: {}", person);
