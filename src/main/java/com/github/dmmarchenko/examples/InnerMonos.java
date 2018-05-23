@@ -11,17 +11,20 @@ import reactor.core.scheduler.Schedulers;
 public class InnerMonos {
 
     public static void main(String[] args) {
-        Mono.fromRunnable(() -> {
-            log.info("Starting first mono");
-            Mono.zip(
-                waitingMono(1, "waiting-1"),
-                waitingMono(1, "waiting-1"),
-                waitingMono(1, "waiting-1"))
-                .block();
-            log.info("Ending first mono");
-        })
-            .then(waitingMono(2, "Then waiting"))
-            .subscribeOn(Schedulers.elastic())
+        Mono.defer(() ->
+            Mono.just("hello")
+                .subscribeOn(Schedulers.newSingle("Very first"))
+                .flatMap(value -> Mono
+                    .just(value + "!")
+                    .doOnNext(innerValue -> log.info("Bottom value: {}", innerValue))
+                    .subscribeOn(Schedulers.newSingle("Bottom"))
+                )
+                .map(String::toUpperCase)
+                .doOnNext(value -> log.info("Middle value: {}", value))
+                .subscribeOn(Schedulers.newSingle("Middle"))
+        )
+            .doOnNext(value -> log.info("Top value: {}", value))
+            .subscribeOn(Schedulers.newSingle("Top"))
             .block();
     }
 
